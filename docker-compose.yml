@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  dev-container:
+    build: .
+    container_name: agent-cage-dev
+    environment:
+      - ENVIRONMENT=dev
+      - DEV_WORKSPACE=/app
+    volumes:
+      # Mount current directory as workspace
+      - .:/app
+      # Persist home directory for tools and config
+      - dev_home:/home/agent
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+      - "8002:8002"
+      - "8888:8888"
+    stdin_open: true
+    tty: true
+    user: agent
+    working_dir: /app
+
+volumes:
+  dev_home:
